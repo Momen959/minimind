@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Logo from '../ui/Logo';
@@ -32,7 +32,7 @@ const Header = () => {
     navigate('/');
   };
 
-  const headerStyle = {
+  const headerStyle: React.CSSProperties = {
     backgroundColor: '#0077D8',
     color: 'white',
     width: '100%',
@@ -41,7 +41,7 @@ const Header = () => {
     minHeight: '80px',
   };
 
-  const containerStyle = {
+  const containerStyle: React.CSSProperties = {
     width: '100%',
     padding: '0 40px',
     display: 'flex',
@@ -51,7 +51,7 @@ const Header = () => {
     minHeight: '80px',
   };
 
-  const centerNavStyle = {
+  const centerNavStyle: React.CSSProperties = {
     position: 'absolute',
     left: '50%',
     top: 0,
@@ -63,7 +63,7 @@ const Header = () => {
     zIndex: 2,
   };
 
-  const navLinkStyle = (active: boolean) => ({
+  const navLinkStyle = (active: boolean): React.CSSProperties => ({
     fontWeight: 700,
     fontSize: '1.25rem',
     letterSpacing: '0.08em',
@@ -79,7 +79,7 @@ const Header = () => {
     alignItems: 'center',
   });
 
-  const profileButtonStyle = {
+  const profileButtonStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
@@ -89,8 +89,8 @@ const Header = () => {
     cursor: 'pointer',
   };
 
-  const dropdownStyle = {
-    position: 'absolute' as const,
+  const dropdownStyle: React.CSSProperties = {
+    position: 'absolute',
     right: 0,
     marginTop: '8px',
     width: '200px',
@@ -101,20 +101,17 @@ const Header = () => {
     zIndex: 10
   };
 
-  const dropdownItemStyle = {
+  const dropdownItemStyle: React.CSSProperties = {
     display: 'block',
     padding: '10px 16px',
     color: '#333',
     textDecoration: 'none',
     width: '100%',
-    textAlign: 'left' as const,
+    textAlign: 'left',
     border: 'none',
     background: 'none',
     cursor: 'pointer',
     transition: 'background-color 0.2s ease',
-    ':hover': {
-      backgroundColor: '#F0F0F7'
-    }
   };
 
   const mobileMenuButtonStyle = {
@@ -128,21 +125,18 @@ const Header = () => {
     }
   };
 
-  const mobileNavStyle = {
-    overflow: 'hidden' as const,
-    '@media (min-width: 768px)': {
-      display: 'none'
-    }
+  const mobileNavStyle: React.CSSProperties = {
+    overflow: 'hidden',
   };
 
-  const mobileNavContainerStyle = {
+  const mobileNavContainerStyle: React.CSSProperties = {
     padding: '16px 20px',
     display: 'flex',
-    flexDirection: 'column' as const,
+    flexDirection: 'column',
     gap: '12px'
   };
 
-  const mobileLinkStyle = (active: boolean) => ({
+  const mobileLinkStyle = (active: boolean): React.CSSProperties => ({
     display: 'block',
     padding: '10px 0',
     fontWeight: 600,
@@ -151,7 +145,7 @@ const Header = () => {
     textDecoration: 'none'
   });
 
-  const dividerStyle = {
+  const dividerStyle: React.CSSProperties = {
     height: '1px',
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     margin: '8px 0'

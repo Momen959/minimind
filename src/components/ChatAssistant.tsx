@@ -14,15 +14,30 @@ const ChatAssistant = () => {
     setInput('');
     setLoading(true);
 
-    const response = await fetch('/api/ai/ask', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: newMessages })
-    });
-    const data = await response.json();
-    const aiReply = data.choices?.[0]?.message?.content || 'Sorry, I could not answer that.';
-    setMessages([...newMessages, { role: 'assistant', content: aiReply }]);
-    setLoading(false);
+    try {
+      const response = await fetch('/api/ai/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: newMessages })
+      });
+      
+      const data = await response.json();
+      console.log('AI response received:', data);
+      
+      if (data.error) {
+        console.error('Error from backend:', data.error, data.details);
+        setMessages([...newMessages, { role: 'assistant', content: `Error: ${data.details || data.error}` }]);
+      } else {
+        const aiReply = data.choices?.[0]?.message?.content || 'Sorry, I could not answer that.';
+        setMessages([...newMessages, { role: 'assistant', content: aiReply }]);
+      }
+    } catch (error: unknown) {
+      console.error('Error sending message:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to connect to AI service';
+      setMessages([...newMessages, { role: 'assistant', content: `Error: ${errorMessage}` }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
