@@ -15,6 +15,7 @@ import CourseDetail from './pages/CourseDetail';
 import LearningPath from './pages/LearningPath';
 import MyLearning from './pages/MyLearning';
 import Chat from './pages/Chat';
+import ChatAssistant from './components/ChatAssistant';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
@@ -55,7 +56,7 @@ const App = () => {
             <Route path="/course/:id" element={<CourseDetail />} />
             <Route path="/path/:id" element={<LearningPath />} />
             <Route path="/my-learning" element={<MyLearning />} />
-            <Route path="/chat" element={<Chat />} />
+            <Route path="/chat" element={<ChatAssistant />} />
           </Routes>
         </AnimatePresence>
       </div>

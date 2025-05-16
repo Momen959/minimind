@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -88,7 +88,7 @@ const Onboarding = () => {
   const [name, setName] = useState('');
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const navigate = useNavigate();
-  const { user, updateUserInterests } = useAuth();
+  const { user, updateUserInterests, updateUserName } = useAuth();
 
   const interests = [
     'CYBERSECURITY',
@@ -109,6 +109,7 @@ const Onboarding = () => {
 
   const handleNameContinue = () => {
     if (name.trim()) {
+      updateUserName(name.trim());
       setStep(2);
     }
   };

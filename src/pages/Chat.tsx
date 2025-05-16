@@ -23,7 +23,7 @@ const Chat = () => {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
     // Add user message
@@ -33,33 +33,44 @@ const Chat = () => {
       sender: 'user',
       timestamp: new Date()
     };
-    
-    setMessages([...messages, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate bot response after a short delay
-    setTimeout(() => {
-      const botResponses = [
-        "That's a great question about technology!",
-        "Let me explain that in a way that's easy to understand.",
-        "Would you like to learn more about this topic?",
-        "Have you tried the activities in your current lesson?",
-        "I can help you understand that concept better!"
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      
+    // Prepare messages for the API (convert to OpenAI format)
+    const apiMessages = [
+      { role: 'system', content: "You are a helpful AI assistant for kids. Explain things simply." },
+      ...[...messages, userMessage].map(m => ({
+        role: m.sender === 'user' ? 'user' : 'assistant',
+        content: m.text
+      }))
+    ];
+
+    try {
+      const response = await fetch('/api/ai/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: apiMessages })
+      });
+      const data = await response.json();
+      const aiReply = data.choices?.[0]?.message?.content || 'Sorry, I could not answer that.';
       const botMessage: Message = {
-        id: Date.now().toString(),
-        text: randomResponse,
+        id: Date.now().toString() + '-bot',
+        text: aiReply,
         sender: 'bot',
         timestamp: new Date()
       };
-      
-      setIsTyping(false);
-      setMessages(prevMessages => [...prevMessages, botMessage]);
-    }, 1500);
+      setMessages(prev => [...prev, botMessage]);
+    } catch (err) {
+      const botMessage: Message = {
+        id: Date.now().toString() + '-bot',
+        text: 'Sorry, there was an error contacting the AI.',
+        sender: 'bot',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, botMessage]);
+    }
+    setIsTyping(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

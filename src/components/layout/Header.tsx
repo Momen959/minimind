@@ -35,49 +35,58 @@ const Header = () => {
   const headerStyle = {
     backgroundColor: '#0077D8',
     color: 'white',
-    width: '100%'
+    width: '100%',
+    boxShadow: '0 6px 24px 0 rgba(0,0,0,0.10)',
+    position: 'relative',
+    minHeight: '80px',
   };
 
   const containerStyle = {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '12px 20px',
+    width: '100%',
+    padding: '0 40px',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    position: 'relative',
+    minHeight: '80px',
   };
 
-  const desktopNavStyle = {
-    display: 'none',
+  const centerNavStyle = {
+    position: 'absolute',
+    left: '50%',
+    top: 0,
+    height: '100%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
     alignItems: 'center',
-    gap: '32px',
-    '@media (min-width: 768px)': {
-      display: 'flex'
-    }
+    gap: '48px',
+    zIndex: 2,
   };
 
   const navLinkStyle = (active: boolean) => ({
-    fontWeight: 600,
-    transition: 'opacity 0.2s ease',
-    opacity: active ? 1 : 0.8,
+    fontWeight: 700,
+    fontSize: '1.25rem',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    opacity: active ? 1 : 0.7,
     textDecoration: 'none',
     color: 'white',
-    ':hover': {
-      opacity: 1
-    }
+    padding: '0 8px',
+    transition: 'opacity 0.2s',
+    borderBottom: active ? '3px solid white' : '3px solid transparent',
+    height: '80px',
+    display: 'flex',
+    alignItems: 'center',
   });
 
   const profileButtonStyle = {
-    display: 'none',
+    display: 'flex',
     alignItems: 'center',
     gap: '8px',
     backgroundColor: 'transparent',
     border: 'none',
     color: 'white',
     cursor: 'pointer',
-    '@media (min-width: 768px)': {
-      display: 'flex'
-    }
   };
 
   const dropdownStyle = {
@@ -152,12 +161,12 @@ const Header = () => {
     <header style={headerStyle}>
       <div style={containerStyle}>
         {/* Logo */}
-        <Link to="/explore" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+        <Link to="/explore" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', zIndex: 3 }}>
           <Logo variant="textWhite" />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav style={{ ...desktopNavStyle, display: 'none', '@media (min-width: 768px)': { display: 'flex' } }}>
+        {/* Centered Navigation */}
+        <nav style={centerNavStyle}>
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -169,11 +178,11 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Profile Button */}
-        <div style={{ position: 'relative', display: 'none', '@media (min-width: 768px)': { display: 'block' } }}>
+        {/* Profile Button (always visible on right) */}
+        <div style={{ position: 'relative', zIndex: 3 }}>
           <button
             onClick={toggleDropdown}
-            style={{ ...profileButtonStyle, display: 'flex' }}
+            style={profileButtonStyle}
           >
             <Avatar size="sm" expression="happy" animate={false} />
             <span>{user?.name || 'Guest'}</span>
@@ -214,10 +223,10 @@ const Header = () => {
           </AnimatePresence>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button style={{ ...mobileMenuButtonStyle, display: 'flex', '@media (min-width: 768px)': { display: 'none' } }} onClick={toggleMobileMenu}>
+        {/* Mobile Menu Button (remove for desktop) */}
+        {/* <button style={{ ...mobileMenuButtonStyle, display: 'flex', '@media (min-width: 768px)': { display: 'none' } }} onClick={toggleMobileMenu}>
           {showMobileMenu ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </button> */}
       </div>
 
       {/* Mobile Navigation */}

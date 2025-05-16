@@ -8,6 +8,7 @@ interface AuthContextType {
   signup: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   updateUserInterests: (interests: string[]) => void;
+  updateUserName: (name: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -44,6 +45,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updateUserName = (name: string) => {
+    if (user) {
+      setUser({ ...user, name });
+    } else {
+      setUser({ name, email: '', interests: [] });
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -53,6 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signup,
         logout,
         updateUserInterests,
+        updateUserName,
       }}
     >
       {children}
