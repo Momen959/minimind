@@ -11,6 +11,7 @@ interface InputProps {
   error?: string;
   required?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const Input = ({
@@ -23,6 +24,7 @@ const Input = ({
   error,
   required = false,
   className = '',
+  style,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
@@ -50,6 +52,7 @@ const Input = ({
           required={required}
           className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-blue transition-all
             ${error ? 'border-red-500' : 'border-ui-inputBorder'}`}
+          style={style}
         />
         {isPassword && (
           <button

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
@@ -6,6 +6,7 @@ import { Search } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Avatar from '../components/ui/Avatar';
 import { Course } from '../types';
+import { useAuth } from '../context/AuthContext';
 
 // Inline styles
 const styles = {
@@ -16,7 +17,7 @@ const styles = {
   },
   sidebar: {
     display: 'none',
-    backgroundColor: '#BFDDF5', // primary-light
+    backgroundColor: '#E6F1F8', // light blue background
     width: '16rem',
     padding: '1.5rem',
     '@media (min-width: 768px)': {
@@ -182,10 +183,52 @@ const coursesData: Course[] = [
 ];
 
 const Explore = () => {
-  const [courses, setCourses] = useState<Course[]>(coursesData);
+  const { user } = useAuth();
+  const [courses, setCourses] = useState<Course[]>([]);
   const [filter, setFilter] = useState<'all' | 'favorite' | 'enrolled' | 'completed'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  // Initialize courses with favorites based on user interests
+  useEffect(() => {
+    console.log("User interests:", user?.interests); // Debug log
+    
+    const interestToCourseMap: Record<string, string> = {
+      'CYBERSECURITY': 'CYBER SECURITY',
+      'CODING': 'CODING',
+      'NETWORKS': 'NETWORKS',
+      'ARTS': 'ARTS',
+      'AI': 'AI',
+      'ENGINEERING': 'ENGINEERING'
+    };
+    
+    // First, reset all default favorites to false
+    let initialCourses = coursesData.map(course => ({
+      ...course,
+      isFavorite: false
+    }));
+    
+    // Then mark as favorite based on user interests
+    if (user?.interests && user.interests.length > 0) {
+      initialCourses = initialCourses.map(course => {
+        // Check if this course should be favorited based on mapped interests
+        const isFavorite = user.interests.some(interest => {
+          // Get the course title that corresponds to this interest
+          const mappedCourseTitle = interestToCourseMap[interest];
+          return mappedCourseTitle === course.title;
+        });
+        
+        return {
+          ...course,
+          isFavorite: isFavorite
+        };
+      });
+      
+      console.log("Updated courses with favorites:", initialCourses); // Debug log
+    }
+    
+    setCourses(initialCourses);
+  }, [user?.interests]);
 
   const handleToggleFavorite = (courseId: string) => {
     setCourses(prevCourses => 
@@ -285,8 +328,8 @@ const Explore = () => {
       <main style={styles.main}>
         {/* Welcome Message */}
         <div style={styles.welcomeSection}>
-          <Avatar expression="curious" />
-          <div style={styles.welcomeText}>
+          <Avatar expression="happy" size="md" />
+          <div style={{ marginLeft: '20px' }}>
             <h1 style={styles.welcomeHeading}>Welcome!</h1>
             <p style={styles.welcomeSubtext}>Try clicking on any topic to start learning</p>
           </div>
@@ -345,6 +388,10 @@ const Explore = () => {
                 isFavorite={course.isFavorite}
                 onToggleFavorite={() => handleToggleFavorite(course.id)}
                 onClick={() => handleCardClick(course.id)}
+                style={{
+                  backgroundColor: '#E6F1F8',
+                  border: '1px solid #0077D8'
+                }}
               />
             </motion.div>
           ))}

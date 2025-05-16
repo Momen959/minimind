@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   const headerStyle = {
-    backgroundColor: '#6962FF',
+    backgroundColor: '#0077D8',
     color: 'white',
     width: '100%'
   };

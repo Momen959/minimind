@@ -6,21 +6,22 @@ interface LogoProps {
   variant?: LogoVariant;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
+  style?: React.CSSProperties;
 }
 
-const Logo = ({ variant = 'primary', className = '', size = 'md' }: LogoProps) => {
+const Logo = ({ variant = 'primary', className = '', size = 'md', style = {} }: LogoProps) => {
   // Font size mapping
   const fontSizeMap = {
     sm: '1rem',
     md: '1.25rem',
-    lg: '1.5rem'
+    lg: '1.75rem'
   };
 
   // Height mapping
   const heightMap = {
     sm: '32px',
     md: '40px',
-    lg: '48px'
+    lg: '56px'
   };
 
   // Letter spacing for the text
@@ -35,15 +36,16 @@ const Logo = ({ variant = 'primary', className = '', size = 'md' }: LogoProps) =
           backgroundColor: '#0077D8',
           color: 'white',
           borderRadius: '9999px',
-          padding: size === 'sm' ? '0.3rem 0.8rem' : '0.5rem 1.2rem',
+          padding: size === 'sm' ? '0.3rem 0.8rem' : size === 'md' ? '0.5rem 1.2rem' : '0.6rem 1.5rem',
           fontSize: fontSizeMap[size],
           height: heightMap[size],
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           letterSpacing: letterSpacing,
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          fontWeight: 'bold'
+          boxShadow: '0 2px 6px rgba(0,119,216,0.25)',
+          fontWeight: 'bold',
+          ...style
         }}
       >
         MINIMIND
@@ -61,7 +63,8 @@ const Logo = ({ variant = 'primary', className = '', size = 'md' }: LogoProps) =
         color: textColor,
         fontSize: fontSizeMap[size],
         letterSpacing: letterSpacing,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        ...style
       }}
     >
       MINIMIND

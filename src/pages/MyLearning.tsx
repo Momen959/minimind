@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, Star, BarChart2, ChevronRight } from 'lucide-react';
 import Avatar from '../components/ui/Avatar';
@@ -11,15 +11,15 @@ const MyLearning = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'inProgress' | 'completed'>('inProgress');
 
-  // Mock data for courses
-  const [courses] = useState<Course[]>([
+  // Sample course templates
+  const coursesData = [
     {
       id: 'c1',
       title: 'Introduction to Coding',
       description: 'Learn the basics of coding with fun interactive lessons.',
       progress: 65,
       totalLessons: 12,
-      isFavorite: true
+      isFavorite: false
     },
     {
       id: 'c2',
@@ -35,9 +35,52 @@ const MyLearning = () => {
       description: 'Discover the wonders of science with experiments.',
       progress: 10,
       totalLessons: 8,
-      isFavorite: true
+      isFavorite: false
     }
-  ]);
+  ];
+
+  // Initialize courses with user interests
+  const [courses, setCourses] = useState<Course[]>([]);
+  
+  useEffect(() => {
+    console.log("User interests in MyLearning:", user?.interests); // Debug log
+    
+    // Define the mapping between interests and course titles
+    const interestToCourseMap: Record<string, string> = {
+      'CYBERSECURITY': 'Introduction to Coding',  // No exact match, map to a course we have
+      'CODING': 'Introduction to Coding',
+      'NETWORKS': 'Math Adventures',   // No exact match, map to a course we have
+      'ARTS': 'Science Explorers',     // No exact match, map to a course we have
+      'AI': 'Introduction to Coding',  // No exact match, map to a course we have
+      'ENGINEERING': 'Science Explorers'
+    };
+    
+    // Start with no favorites
+    let userCourses = coursesData.map(course => ({
+      ...course,
+      isFavorite: false
+    }));
+    
+    // Apply user interests to mark favorites
+    if (user?.interests && user.interests.length > 0) {
+      userCourses = userCourses.map(course => {
+        // Check if this course should be favorited based on mapped interests
+        const isFavorite = user.interests.some(interest => {
+          const mappedCourseTitle = interestToCourseMap[interest];
+          return mappedCourseTitle === course.title;
+        });
+        
+        return { 
+          ...course, 
+          isFavorite: isFavorite 
+        };
+      });
+      
+      console.log("Updated MyLearning courses:", userCourses); // Debug log
+    }
+    
+    setCourses(userCourses);
+  }, [user?.interests]);
 
   const completedCourses: Course[] = [
     {
@@ -56,7 +99,7 @@ const MyLearning = () => {
   };
 
   const headerStyle = {
-    backgroundColor: '#6962FF',
+    backgroundColor: '#0077D8',
     color: 'white',
     borderRadius: '0 0 20px 20px',
     padding: '20px'
@@ -75,7 +118,7 @@ const MyLearning = () => {
     flex: 1,
     padding: '10px 16px',
     borderRadius: '100px',
-    background: isActive ? '#6962FF' : 'transparent',
+    background: isActive ? '#0077D8' : 'transparent',
     color: isActive ? 'white' : '#666',
     border: 'none',
     fontWeight: 'bold',
@@ -94,8 +137,8 @@ const MyLearning = () => {
           transition={{ duration: 0.5 }}
         >
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
-            <Avatar expression="excited" size="md" />
-            <div style={{ marginLeft: '12px' }}>
+            <Avatar expression="excited" size="sm" />
+            <div style={{ marginLeft: '18px' }}>
               <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: 0 }}>
                 Hi, {user?.name || 'Friend'}!
               </h2>
@@ -191,7 +234,7 @@ const MyLearning = () => {
                         <>
                           <div style={{ 
                             height: '8px', 
-                            backgroundColor: '#EAEAFE', 
+                            backgroundColor: '#E6F1F8', 
                             borderRadius: '4px', 
                             marginBottom: '8px', 
                             overflow: 'hidden' 
@@ -199,7 +242,7 @@ const MyLearning = () => {
                             <div style={{ 
                               height: '100%', 
                               width: `${course.progress}%`, 
-                              backgroundColor: '#6962FF', 
+                              backgroundColor: '#0077D8', 
                               borderRadius: '4px' 
                             }} />
                           </div>
@@ -226,9 +269,15 @@ const MyLearning = () => {
                     </div>
                     
                     <Button 
-                      variant="icon" 
+                      variant="primary" 
                       icon={<ChevronRight size={20} />}
                       onClick={() => {/* Navigate to course */}}
+                      style={{
+                        minWidth: '36px',
+                        minHeight: '36px',
+                        padding: '8px',
+                        backgroundColor: '#6962FF'
+                      }}
                     />
                   </div>
                 </div>

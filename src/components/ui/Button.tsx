@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-type ButtonVariant = 'primary' | 'secondary' | 'interestTopic' | 'socialLogin' | 'iconButton';
+type ButtonVariant = 'primary' | 'secondary' | 'interestTopic' | 'socialLogin' | 'icon';
 
 interface ButtonProps {
   variant?: ButtonVariant;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
   icon?: React.ReactNode;
@@ -14,6 +14,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   selected?: boolean;
   fullWidth?: boolean;
+  style?: React.CSSProperties;
 }
 
 const Button = ({
@@ -27,6 +28,7 @@ const Button = ({
   type = 'button',
   selected = false,
   fullWidth = false,
+  style = {},
 }: ButtonProps) => {
   const getButtonStyles = (): React.CSSProperties => {
     // Base styles
@@ -49,8 +51,10 @@ const Button = ({
         color: 'white',
         border: 'none',
         borderRadius: '9999px',
-        padding: '0.75rem 1.5rem',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        padding: '0.875rem 1.75rem',
+        boxShadow: '0 2px 8px rgba(0,119,216,0.3)',
+        fontSize: '1.05rem',
+        letterSpacing: '0.02em',
       },
       secondary: {
         backgroundColor: 'white',
@@ -63,18 +67,21 @@ const Button = ({
         ? {
             backgroundColor: '#0077D8',
             color: 'white',
-            border: '2px solid #0077D8',
+            border: '1px solid #0077D8',
             borderRadius: '9999px',
-            padding: '0.5rem 1rem',
-            fontSize: '0.875rem',
+            padding: '0.625rem 1.25rem',
+            fontSize: '1rem',
+            letterSpacing: '0.03em',
+            boxShadow: '0 2px 6px rgba(0,119,216,0.25)',
           }
         : {
             backgroundColor: 'white',
             color: '#0077D8',
-            border: '2px solid #0077D8',
+            border: '1px solid #0077D8',
             borderRadius: '9999px',
-            padding: '0.5rem 1rem',
-            fontSize: '0.875rem',
+            padding: '0.625rem 1.25rem',
+            fontSize: '1rem',
+            letterSpacing: '0.03em',
           },
       socialLogin: {
         backgroundColor: 'white',
@@ -83,7 +90,7 @@ const Button = ({
         borderRadius: '0.75rem',
         padding: '0.5rem 1rem',
       },
-      iconButton: {
+      icon: {
         backgroundColor: 'white',
         color: '#0077D8',
         border: '1px solid #0077D8',
@@ -94,8 +101,11 @@ const Button = ({
       },
     };
 
-    return { ...baseStyles, ...variantStyles[variant] };
+    return { ...baseStyles, ...variantStyles[variant], ...style };
   };
+
+  // If it's just an icon button with no children, center the icon
+  const iconOnly = icon && !children;
 
   return (
     <motion.button
@@ -105,11 +115,13 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       whileTap={{ scale: disabled ? 1 : 0.95 }}
-      whileHover={{ scale: disabled ? 1 : 1.02, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+      whileHover={disabled ? {} : { scale: 1.02, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
     >
-      {icon && iconPosition === 'left' && <span style={{ marginRight: '0.5rem' }}>{icon}</span>}
+      {icon && (iconPosition === 'left' || iconOnly) && 
+        <span style={{ marginRight: children && iconPosition === 'left' ? '0.5rem' : '0' }}>{icon}</span>}
       {children}
-      {icon && iconPosition === 'right' && <span style={{ marginLeft: '0.5rem' }}>{icon}</span>}
+      {icon && iconPosition === 'right' && !iconOnly && 
+        <span style={{ marginLeft: '0.5rem' }}>{icon}</span>}
     </motion.button>
   );
 };

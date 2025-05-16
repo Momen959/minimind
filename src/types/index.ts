@@ -22,7 +22,11 @@ export type AvatarExpression =
   | 'excited' 
   | 'starEyes' 
   | 'confused' 
-  | 'sleeping';
+  | 'sleeping'
+  | 'curious'
+  | 'frown'
+  | 'smile'
+  | 'proud';
 
 export interface Milestone {
   number: string;

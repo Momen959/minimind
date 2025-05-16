@@ -87,7 +87,7 @@ const Chat = () => {
   };
 
   const headerStyle = {
-    backgroundColor: '#6962FF',
+    backgroundColor: '#0077D8',
     color: 'white',
     padding: '16px',
     display: 'flex',
@@ -105,7 +105,7 @@ const Chat = () => {
 
   const userMessageStyle = {
     alignSelf: 'flex-end',
-    backgroundColor: '#6962FF',
+    backgroundColor: '#0077D8',
     color: 'white',
     padding: '12px 16px',
     borderRadius: '16px 16px 0 16px',
@@ -114,7 +114,7 @@ const Chat = () => {
 
   const botMessageStyle = {
     alignSelf: 'flex-start',
-    backgroundColor: '#F1F0FF',
+    backgroundColor: '#E6F1F8',
     color: '#333',
     padding: '12px 16px',
     borderRadius: '16px 16px 16px 0',
@@ -154,7 +154,7 @@ const Chat = () => {
       >
         {/* Chat header */}
         <div style={headerStyle}>
-          <Avatar expression="happy" size="sm" style={{ marginRight: '12px' }} />
+          <Avatar expression="happy" size="sm" style={{ marginRight: '16px' }} />
           <div>
             <h2 style={{ fontWeight: 'bold', margin: 0, fontSize: '16px' }}>AI Learning Assistant</h2>
             <p style={{ fontSize: '12px', margin: '4px 0 0', opacity: 0.8 }}>Ask me anything about your lessons!</p>
@@ -173,7 +173,7 @@ const Chat = () => {
             >
               {message.sender === 'bot' && (
                 <div style={{ display: 'flex', marginBottom: '8px', alignItems: 'center' }}>
-                  <Avatar expression="happy" size="xs" style={{ marginRight: '8px' }} />
+                  <Avatar expression="happy" size="xs" style={{ marginRight: '10px' }} />
                   <span style={{ fontSize: '12px', color: '#666' }}>AI Assistant</span>
                 </div>
               )}
@@ -199,11 +199,11 @@ const Chat = () => {
               animate={{ opacity: 1, scale: 1 }}
             >
               <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#6962FF', 
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0077D8', 
                   animation: 'bounce 1.4s infinite ease-in-out' }}></div>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#6962FF', 
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0077D8', 
                   animation: 'bounce 1.4s infinite ease-in-out 0.2s' }}></div>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#6962FF', 
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0077D8', 
                   animation: 'bounce 1.4s infinite ease-in-out 0.4s' }}></div>
               </div>
             </motion.div>
@@ -215,7 +215,7 @@ const Chat = () => {
           <div style={typingIndicatorStyle}>
             {isTyping && (
               <>
-                <Sparkles size={16} style={{ color: '#6962FF' }} />
+                <Sparkles size={16} style={{ color: '#0077D8' }} />
                 <span>AI is thinking...</span>
               </>
             )}
@@ -244,7 +244,8 @@ const Chat = () => {
               style={{ 
                 borderRadius: '0 100px 100px 0', 
                 padding: '12px 20px',
-                margin: '0'
+                margin: '0',
+                backgroundColor: '#0077D8'
               }}
             >
               Send

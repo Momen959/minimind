@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser({
       name: 'Demo User',
       email,
-      interests: ['CODING', 'AI'],
+      interests: [],
     });
   };
 
