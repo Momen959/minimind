@@ -26,7 +26,7 @@ const Logo = ({ variant = 'primary', className = '', size = 'md', style = {} }: 
 
   // Letter spacing for the text
   const letterSpacing = '0.05em';
-  
+
   // For the primary variant (blue capsule with white text)
   if (variant === 'primary') {
     return (

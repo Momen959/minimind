@@ -125,37 +125,37 @@ const Card = ({
         <div style={styles.header}>
           <h3 style={styles.title}>{title}</h3>
           {onToggleFavorite && (
-            <motion.button
-              onClick={handleFavoriteClick}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+        <motion.button
+          onClick={handleFavoriteClick}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
               style={styles.favoriteButton}
-            >
-              <Heart
-                size={20}
+        >
+          <Heart
+            size={20}
                 color={isFavorite ? '#FF8651' : '#A0A0A0'} 
-                fill={isFavorite ? '#FF8651' : 'none'}
-              />
-            </motion.button>
+            fill={isFavorite ? '#FF8651' : 'none'}
+          />
+        </motion.button>
           )}
-        </div>
-        
+      </div>
+      
         {description && <p style={styles.description}>{description}</p>}
-        
+      
         {progress !== undefined && totalLessons !== undefined && (
           <div style={styles.progressContainer}>
             <div style={styles.progressHeader}>
-              <span>Progress</span>
+          <span>Progress</span>
               <span style={styles.progressCount}>{progress}/{totalLessons}</span>
-            </div>
+        </div>
             <div style={styles.progressBarTrack}>
-              <div 
+          <div 
                 style={{
                   ...styles.progressBarFill,
                   width: `${progressPercentage}%`
                 }}
-              ></div>
-            </div>
+          ></div>
+        </div>
           </div>
         )}
       </div>

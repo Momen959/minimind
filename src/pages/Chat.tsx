@@ -158,30 +158,30 @@ const Chat = () => {
 
   return (
     <div style={containerStyle}>
-      <motion.div 
+        <motion.div 
         style={chatContainerStyle}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        {/* Chat header */}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {/* Chat header */}
         <div style={headerStyle}>
           <Avatar expression="happy" size="sm" style={{ marginRight: '16px' }} />
-          <div>
+              <div>
             <h2 style={{ fontWeight: 'bold', margin: 0, fontSize: '16px' }}>AI Learning Assistant</h2>
             <p style={{ fontSize: '12px', margin: '4px 0 0', opacity: 0.8 }}>Ask me anything about your lessons!</p>
+            </div>
           </div>
-        </div>
-        
-        {/* Chat messages */}
+          
+          {/* Chat messages */}
         <div style={messageContainerStyle}>
-          {messages.map((message) => (
-            <motion.div 
-              key={message.id}
+            {messages.map((message) => (
+              <motion.div 
+                key={message.id}
               style={{ alignSelf: message.sender === 'user' ? 'flex-end' : 'flex-start' }}
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.3 }}
-            >
+              >
               {message.sender === 'bot' && (
                 <div style={{ display: 'flex', marginBottom: '8px', alignItems: 'center' }}>
                   <Avatar expression="happy" size="xs" style={{ marginRight: '10px' }} />
@@ -199,9 +199,9 @@ const Chat = () => {
                 padding: '0 4px'
               }}>
                 {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-              </div>
-            </motion.div>
-          ))}
+                </div>
+              </motion.div>
+            ))}
           
           {isTyping && (
             <motion.div 
@@ -219,9 +219,9 @@ const Chat = () => {
               </div>
             </motion.div>
           )}
-        </div>
-        
-        {/* Chat input */}
+          </div>
+          
+          {/* Chat input */}
         <div style={inputContainerStyle}>
           <div style={typingIndicatorStyle}>
             {isTyping && (
@@ -232,11 +232,11 @@ const Chat = () => {
             )}
           </div>
           <div style={inputStyle}>
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
               placeholder="Type your message here..."
               style={{ 
                 flex: 1, 
@@ -246,11 +246,11 @@ const Chat = () => {
                 backgroundColor: 'transparent',
                 fontSize: '14px'
               }}
-            />
+              />
             <Button
               variant="primary"
               icon={<SendHorizontal size={18} />}
-              onClick={handleSendMessage}
+                onClick={handleSendMessage}
               disabled={!inputValue.trim() || isTyping}
               style={{ 
                 borderRadius: '0 100px 100px 0', 
@@ -258,12 +258,12 @@ const Chat = () => {
                 margin: '0',
                 backgroundColor: '#0077D8'
               }}
-            >
+              >
               Send
             </Button>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
       
       <style jsx>{`
         @keyframes bounce {

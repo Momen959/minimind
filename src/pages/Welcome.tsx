@@ -130,7 +130,7 @@ const Welcome = () => {
         variants={itemVariants}
       >
         <Button 
-          variant="primary"
+          variant="primary" 
           fullWidth
           onClick={() => navigate('/signin')}
         >
@@ -138,7 +138,7 @@ const Welcome = () => {
         </Button>
         
         <Button 
-          variant="secondary"
+          variant="secondary" 
           fullWidth
           onClick={() => navigate('/signup')}
         >
@@ -146,7 +146,7 @@ const Welcome = () => {
         </Button>
         
         <Button 
-          variant="secondary"
+          variant="secondary" 
           fullWidth
           onClick={() => navigate('/onboarding')}
         >

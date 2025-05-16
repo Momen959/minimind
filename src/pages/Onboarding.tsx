@@ -185,9 +185,9 @@ const Onboarding = () => {
         }}>
           <motion.div variants={itemVariants}>
             <Avatar expression="confused" size="xl" />
-          </motion.div>
+      </motion.div>
         </div>
-        
+      
         <motion.div 
           variants={itemVariants} 
           style={{
@@ -196,11 +196,11 @@ const Onboarding = () => {
             paddingTop: '30px',
           }}
         >
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
             placeholder="What's your name?"
-            className="text-center"
+          className="text-center"
             style={{
               height: '60px',
               fontSize: '1.5rem',
@@ -208,8 +208,8 @@ const Onboarding = () => {
               border: '1px solid #0077D8',
               boxShadow: '0 2px 6px rgba(0,119,216,0.1)',
             }}
-          />
-        </motion.div>
+        />
+      </motion.div>
       </div>
       
       <motion.div variants={itemVariants} style={{
@@ -253,9 +253,9 @@ const Onboarding = () => {
       key="interest-step"
     >
       <div style={styles.logoContainer}>
-        <motion.div variants={itemVariants}>
+      <motion.div variants={itemVariants}>
           <Logo variant="primary" size="md" />
-        </motion.div>
+      </motion.div>
       </div>
       
       <div style={{ 
@@ -270,8 +270,8 @@ const Onboarding = () => {
       }}>
         <motion.div variants={itemVariants} style={{ marginRight: '30px' }}>
           <Avatar expression="proud" size="xl" />
-        </motion.div>
-        
+      </motion.div>
+      
         <motion.div variants={itemVariants}>
           <h2 style={{
             ...styles.interestQuestion,
@@ -280,7 +280,7 @@ const Onboarding = () => {
             marginBottom: '0',
             lineHeight: '1.2',
           }}>What's your<br/>interest?</h2>
-        </motion.div>
+      </motion.div>
       </div>
       
       <motion.div variants={itemVariants} style={{ width: '100%', maxWidth: '750px', padding: '0 20px' }}>
@@ -300,7 +300,7 @@ const Onboarding = () => {
                 fontSize: '1rem'
               }}
               fullWidth
-            >
+      >
               {interest}
             </Button>
           ))}
@@ -308,21 +308,21 @@ const Onboarding = () => {
         
         <div style={styles.interestRow}>
           {interests.slice(3, 6).map((interest) => (
-            <Button
-              key={interest}
-              variant="interestTopic"
-              selected={selectedInterests.includes(interest)}
-              onClick={() => handleInterestToggle(interest)}
+          <Button
+            key={interest}
+            variant="interestTopic"
+            selected={selectedInterests.includes(interest)}
+            onClick={() => handleInterestToggle(interest)}
               style={{ 
                 height: '50px',
                 fontWeight: 'bold',
                 fontSize: '1rem'
               }}
               fullWidth
-            >
-              {interest}
-            </Button>
-          ))}
+          >
+            {interest}
+          </Button>
+        ))}
         </div>
       </motion.div>
       

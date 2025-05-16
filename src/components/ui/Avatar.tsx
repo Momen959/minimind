@@ -12,7 +12,7 @@ interface AvatarProps {
 const Avatar = ({ 
   expression = 'neutral', 
   size = 'md', 
-  className = '', 
+  className = '',
   style = {},
   animate = true 
 }: AvatarProps) => {
@@ -79,7 +79,7 @@ const Avatar = ({
           margin: '0 auto'
         }}
       />
-    </div>
+      </div>
   );
 };
 
